@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "139453621066",
+    "project_id": "myecomarapp",
+    "storage_bucket": "myecomarapp.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:139453621066:android:d7c0ff43bd7fc5874217b3",
+        "android_client_info": {
+          "package_name": "com.example.myecomartapp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "139453621066-7ugcigrg39t1idlia2tfm2q1l1ad3trb.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDVlaNLGwQ81zlVE9XB7uDh1l4xY0E9404"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "139453621066-7ugcigrg39t1idlia2tfm2q1l1ad3trb.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

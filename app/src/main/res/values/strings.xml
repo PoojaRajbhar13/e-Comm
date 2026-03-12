@@ -1,0 +1,8 @@
+<resources>
+    <string name="app_name">MyEcomartApp</string>
+    <string name="choose_product"> Choose Product </string>
+    <string name="make_payment"> Make Paymentmet</string>
+    <string name="get_order">Get Order</string>
+    <string name="header">Discover a wide variety of beautifully designed e-cards tailored for every occasion. Whether it’s birthdays, anniversaries, festivals, or special celebrations, you can find the perfect card that matches your style and emotion</string>
+
+</resources>
