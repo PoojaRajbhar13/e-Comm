@@ -5,6 +5,7 @@ import androidx.lifecycle.viewModelScope
 import com.example.myecomartapp.core.util.Result
 import com.example.myecomartapp.domain.usecase.LoginUsecase
 import com.example.myecomartapp.domain.usecase.SignupUsecase
+import com.example.myecomartapp.domain.usecase.userprefrence.SetUserPrefUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -15,7 +16,8 @@ import javax.inject.Inject
 @HiltViewModel
 class AuthViewModel @Inject constructor (
     private val loginUsecase: LoginUsecase,
-    private val signupUsecase: SignupUsecase
+    private val signupUsecase: SignupUsecase,
+    private val setUserPrefUseCase: SetUserPrefUseCase
 ) : ViewModel(){
 
 
@@ -29,6 +31,10 @@ class AuthViewModel @Inject constructor (
             try{
                 val result = loginUsecase(email, password)
                 _authState.value = result
+                if(result is Result.Success){
+                    setUserPrefUseCase.setFirstTimeLogin(false)
+                    setUserPrefUseCase.setLoggedIn(true)
+                }
             }catch (e: Exception){
                 _authState.value = Result.Failure(e.message ?: "Login failed")
             }
@@ -42,6 +48,8 @@ class AuthViewModel @Inject constructor (
             try{
                val result = signupUsecase(email, password)
                 _authState.value = result
+                setUserPrefUseCase.setFirstTimeLogin(true)
+                setUserPrefUseCase.setLoggedIn(false)
             }catch (e:Exception){
                 _authState.value = Result.Failure(e.message ?: "SignUp fail")
 

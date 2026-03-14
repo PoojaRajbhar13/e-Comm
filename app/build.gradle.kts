@@ -93,4 +93,10 @@ dependencies {
 
     // indicator
     implementation("com.tbuonomo:dotsindicator:5.1.0")
+
+    //userprefrence
+    implementation("androidx.datastore:datastore-preferences:1.2.1")
+    implementation("androidx.datastore:datastore-preferences-core:1.2.1")
+    implementation("androidx.datastore:datastore:1.2.1")
+    implementation("androidx.datastore:datastore-core:1.2.1")
 }

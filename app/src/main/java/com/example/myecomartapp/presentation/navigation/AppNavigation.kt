@@ -13,22 +13,21 @@ import com.example.myecomartapp.presentation.screen.auth.SignUpScreen
 import com.example.myecomartapp.presentation.screen.onboarding.OnboardingScreen
 import com.example.myecomartapp.presentation.screen.splash.SplashScreen
 import com.example.myecomartapp.presentation.viewmodel.AuthViewModel
+import com.example.myecomartapp.presentation.viewmodel.UserPreferenceViewModel
 import kotlinx.serialization.Serializable
 
 @Composable
 fun AppNavigation(){
      val navController = rememberNavController()
      val viewModel : AuthViewModel = viewModel()
+    val viewModel1 : UserPreferenceViewModel = viewModel()
 
-    NavHost(navController = navController, startDestination = Route.Login ){
+    NavHost(navController = navController, startDestination = Route.SplashScreen ){
 
         composable<Route.SplashScreen>{
             SplashScreen(
-                onFinish = {
-                    navController.navigate(Route.Login){
-                        popUpTo(Route.SplashScreen){ inclusive = true}
-                    }
-                }
+                navHostController = navController,
+                userPreferenceViewModel = viewModel1
             )
         }
 
@@ -41,7 +40,7 @@ fun AppNavigation(){
         }
 
         composable<Route.Onboarding> {
-            OnboardingScreen()
+            OnboardingScreen(navHostController = navController, userPreferenceViewModel = viewModel1)
         }
 
         composable<Route.HomeScreen> {
