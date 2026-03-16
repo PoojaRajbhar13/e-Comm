@@ -99,4 +99,15 @@ dependencies {
     implementation("androidx.datastore:datastore-preferences-core:1.2.1")
     implementation("androidx.datastore:datastore:1.2.1")
     implementation("androidx.datastore:datastore-core:1.2.1")
+
+
+    implementation("io.ktor:ktor-client-core:3.3.0")
+    implementation("io.ktor:ktor-client-cio:3.2.1")
+    implementation("io.ktor:ktor-client-content-negotiation:3.3.0")
+    implementation("io.ktor:ktor-client-logging:3.3.0")
+
+
+    implementation("io.coil-kt.coil3:coil-compose:3.3.0")
+    implementation("io.coil-kt.coil3:coil-network-okhttp:3.3.0")
+    implementation("io.ktor:ktor-serialization-kotlinx-json:3.3.0")
 }

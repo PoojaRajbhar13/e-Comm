@@ -1,26 +1,26 @@
 package com.example.myecomartapp.presentation.navigation
 
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.remember
 import androidx.lifecycle.viewmodel.compose.viewModel
-import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
-import com.example.myecomartapp.presentation.screen.HomeScreen
+import com.example.myecomartapp.presentation.screen.homescreen.HomeScreen
 import com.example.myecomartapp.presentation.screen.auth.LoginScreen
 import com.example.myecomartapp.presentation.screen.auth.SignUpScreen
+import com.example.myecomartapp.presentation.screen.homescreen.HomePage
 import com.example.myecomartapp.presentation.screen.onboarding.OnboardingScreen
 import com.example.myecomartapp.presentation.screen.splash.SplashScreen
 import com.example.myecomartapp.presentation.viewmodel.AuthViewModel
+import com.example.myecomartapp.presentation.viewmodel.ProductViewModel
 import com.example.myecomartapp.presentation.viewmodel.UserPreferenceViewModel
-import kotlinx.serialization.Serializable
 
 @Composable
 fun AppNavigation(){
      val navController = rememberNavController()
      val viewModel : AuthViewModel = viewModel()
     val viewModel1 : UserPreferenceViewModel = viewModel()
+    val viewModel2 : ProductViewModel = viewModel()
 
     NavHost(navController = navController, startDestination = Route.SplashScreen ){
 
@@ -44,7 +44,7 @@ fun AppNavigation(){
         }
 
         composable<Route.HomeScreen> {
-            HomeScreen()
+            HomePage(productViewModel = viewModel2 )
         }
     }
 }
