@@ -3,22 +3,36 @@ package com.example.myecomartapp.presentation.navigation
 import kotlinx.serialization.Serializable
 
 @Serializable
-sealed class  Route{  // subclass
+sealed class Route {
 
-    @Serializable  // use for conversion
-    data object SignUp  : Route()
+    @Serializable
+    data object SignUp : Route()
 
     @Serializable
     data object SplashScreen : Route()
 
     @Serializable
-    data object  Login : Route()
+    data object Login : Route()
 
     @Serializable
     data object Onboarding : Route()
 
+    @Serializable
+    data object HomeScreen : Route()
 
     @Serializable
-    data object  HomeScreen: Route()
+    data object SearchScreen : Route()
+
+    @Serializable
+    data object Wishlist : Route()
+
+    @Serializable
+    data object Cart : Route()
+
+    @Serializable
+    data object Settings : Route()
+
 
 }
+
+

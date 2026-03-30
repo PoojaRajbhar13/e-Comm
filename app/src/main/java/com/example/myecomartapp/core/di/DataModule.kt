@@ -71,8 +71,8 @@ object DataModule {
             }
             defaultRequest {
                 url {
-                    protocol = URLProtocol.HTTPS
-                    host = "dummyjson.com"
+                    protocol = URLProtocol.HTTPS //https://
+                    host = "dummyjson.com" //dummyjson.com/
                 }
 
             }

@@ -4,7 +4,9 @@ import androidx.compose.animation.core.animateFloat
 import androidx.compose.animation.core.infiniteRepeatable
 import androidx.compose.animation.core.rememberInfiniteTransition
 import androidx.compose.animation.core.tween
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
@@ -43,65 +45,65 @@ fun LoadingIndicator(){
         label = "rotation animation"
     )
     var width by remember { mutableIntStateOf(0) }
-Box(
-    modifier  = Modifier
-        .size(40.dp)
-        .onSizeChanged{
-            width = it.width
-        },
-    contentAlignment = Alignment.Center
-){
 
-    CircularProgressIndicator(
-        color = Color.Blue,
-        strokeWidth = 1.dp,
+    Column(
         modifier = Modifier
-            .fillMaxSize()
-            .graphicsLayer{
-                rotationZ = rotation.value
-                }
-    )
-    CircularProgressIndicator(
-        color = Color.Blue,
-        strokeWidth = 1.dp,  // line ki motai
-        modifier = Modifier
-            .fillMaxSize()
-            .padding(
-                with(LocalDensity.current){
-                    ( width * PADDING_PERCENTAGE_INNER_CIRCLE).toDp()
-                }
+            .fillMaxSize(),
+        verticalArrangement = Arrangement.Center,
+        horizontalAlignment = Alignment.CenterHorizontally
+    ) {
+        Box(
+            modifier = Modifier
+                .size(40.dp)
+                .onSizeChanged {
+                    width = it.width
+                },
+            contentAlignment = Alignment.Center
+        ) {
+
+            CircularProgressIndicator(
+                color = Color.Blue,
+                strokeWidth = 1.dp,
+                modifier = Modifier
+                    .fillMaxSize()
+                    .graphicsLayer {
+                        rotationZ = rotation.value
+                    }
             )
-            .graphicsLayer{
-                rotationZ = rotation.value + POSITION_START_OFFSET_INNER_CIRCLE
-            }
-    )
-    CircularProgressIndicator(
-        color = Color.Blue,
-        strokeWidth = 1.dp,
-        modifier = Modifier
-            .fillMaxSize()
-            .padding(
-                with(LocalDensity.current){
-                    ( width * PADDING_PERCENTAGE_OUTER_CIRCLE).toDp()
-                }
+            CircularProgressIndicator(
+                color = Color.Blue,
+                strokeWidth = 1.dp,  // line ki motai
+                modifier = Modifier
+                    .fillMaxSize()
+                    .padding(
+                        with(LocalDensity.current) {
+                            (width * PADDING_PERCENTAGE_INNER_CIRCLE).toDp()
+                        }
+                    )
+                    .graphicsLayer {
+                        rotationZ = rotation.value + POSITION_START_OFFSET_INNER_CIRCLE
+                    }
             )
-            .graphicsLayer{
-                rotationZ = rotation.value + POSITION_START_OFFSET_OUTER_CIRCLE
-            }
-    )
+            CircularProgressIndicator(
+                color = Color.Blue,
+                strokeWidth = 1.dp,
+                modifier = Modifier
+                    .fillMaxSize()
+                    .padding(
+                        with(LocalDensity.current) {
+                            (width * PADDING_PERCENTAGE_OUTER_CIRCLE).toDp()
+                        }
+                    )
+                    .graphicsLayer {
+                        rotationZ = rotation.value + POSITION_START_OFFSET_OUTER_CIRCLE
+                    }
+            )
 
-}
-
-}
-
-
-
-
-
-@Preview(
-   showBackground = true
-)
-@Composable
- fun LoadingIndicatorPreview(){
-        LoadingIndicator()
+        }
     }
+
+}
+
+
+
+
