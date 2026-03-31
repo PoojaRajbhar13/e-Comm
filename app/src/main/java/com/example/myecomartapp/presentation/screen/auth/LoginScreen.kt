@@ -1,13 +1,18 @@
 package com.example.myecomartapp.presentation.screen.auth
 
+import android.R.attr.text
 import android.widget.Toast
+import androidx.compose.foundation.Image
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.wrapContentWidth
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
@@ -26,12 +31,17 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavHostController
+import com.example.myecomartapp.R
 import com.example.myecomartapp.core.util.Result
+import com.example.myecomartapp.presentation.componentes.AuthLogo
 import com.example.myecomartapp.presentation.navigation.Route
 import com.example.myecomartapp.presentation.viewmodel.AuthViewModel
 
@@ -141,6 +151,32 @@ fun LoginScreen(loginViewModel: AuthViewModel, navHostController: NavHostControl
 
             )
         }
+        Spacer(modifier = Modifier.height(10.dp))
+
+        //======Or continue with =======
+        Text(
+            text = "-OR Continue with-",
+            fontSize = 14.sp,
+            color = Color.Gray,
+            textAlign = TextAlign.Center
+        )
+        Spacer(modifier = Modifier.height(20.dp))
+
+
+        AuthLogo(loginViewModel)
+
+        Spacer(modifier = Modifier.height(20.dp))
+
+Row {
+    Text(text = "Don't have an Id?")
+    Text(
+        text = "Sign Up",
+        color = Color.Red,
+        modifier = Modifier.clickable{
+            navHostController.navigate(Route.SignUp)
+        }
+    )
+}
 
 
     }

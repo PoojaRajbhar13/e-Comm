@@ -1,11 +1,14 @@
 package com.example.myecomartapp.presentation.viewmodel
 
+import android.accounts.Account
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.myecomartapp.core.util.Result
+import com.example.myecomartapp.domain.usecase.GoogleAuthUsecase
 import com.example.myecomartapp.domain.usecase.LoginUsecase
 import com.example.myecomartapp.domain.usecase.SignupUsecase
 import com.example.myecomartapp.domain.usecase.userprefrence.SetUserPrefUseCase
+import com.google.android.gms.auth.api.signin.GoogleSignInAccount
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -17,7 +20,8 @@ import javax.inject.Inject
 class AuthViewModel @Inject constructor (
     private val loginUsecase: LoginUsecase,
     private val signupUsecase: SignupUsecase,
-    private val setUserPrefUseCase: SetUserPrefUseCase
+    private val setUserPrefUseCase: SetUserPrefUseCase,
+    private val googleAuthUsecase: GoogleAuthUsecase
 ) : ViewModel(){
 
 
@@ -55,6 +59,17 @@ class AuthViewModel @Inject constructor (
 
         }
         }
+    }
+
+
+    fun googleAuth(account: GoogleSignInAccount){
+
+        _authState.value = Result.Loading
+        viewModelScope.launch(Dispatchers.IO){
+          val result = googleAuthUsecase(account)
+            _authState.value = result
+        }
+
     }
 
 }

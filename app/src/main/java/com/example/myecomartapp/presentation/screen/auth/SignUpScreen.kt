@@ -39,6 +39,7 @@ import androidx.compose.ui.unit.sp
 import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavHostController
+import com.example.myecomartapp.presentation.componentes.AuthLogo
 import com.example.myecomartapp.presentation.viewmodel.AuthViewModel
 import kotlin.math.sign
 
@@ -120,25 +121,6 @@ fun SignUpScreen(signupViewModel: AuthViewModel, navHostController: NavHostContr
         Spacer(modifier = Modifier.height(20.dp))
 
 
-//        Box(
-//            modifier = Modifier
-//                .clip(shape = RoundedCornerShape(5.dp))
-//                .height(70.dp)
-//                .fillMaxWidth()
-//                .background(Color(0xFF8817C6))
-//                .clickable{
-//
-//                }
-//        ){
-//            Text(
-//                text = "SignUp",
-//                fontSize = 24.sp,
-//                color = Color.White,
-//                fontWeight = FontWeight.Medium,
-//                modifier = Modifier.align(Alignment.Center),
-//                letterSpacing = 0.5.sp
-//            )
-//        }
 
 
         Button(onClick = {signupViewModel.signup( email = email ,password = password)
@@ -154,6 +136,9 @@ fun SignUpScreen(signupViewModel: AuthViewModel, navHostController: NavHostContr
             )
         }
 
+        Spacer(modifier = Modifier.height(20.dp))
+
+        AuthLogo(signupViewModel)
     }
 
 
