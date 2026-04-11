@@ -20,9 +20,9 @@ class ProductRepoImplementation @Inject constructor( private val productApiServi
         }
     }
 
-    override suspend fun searchProduct(query: String): Result<ProductDto> {
+    override suspend fun searchProduct(query: String /*shoes*/): Result<ProductDto> {
         return try{
-            val  search : ProductDto = productApiService.searchProduct(query)
+            val  search : ProductDto = productApiService.searchProduct(query) //shoes
             Result.Success(search)
         }catch (e: Exception){
             Result.Failure(e.localizedMessage ?: " unknown error")

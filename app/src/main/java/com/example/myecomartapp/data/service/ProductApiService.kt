@@ -17,9 +17,9 @@ class ProductApiService @Inject constructor (val httpClient: HttpClient){
 
     }
 
-    suspend fun searchProduct(query: String): ProductDto{
+    suspend fun searchProduct(query: String /*shoes*/): ProductDto{
         return httpClient.get("products/search"){
-            parameter("q", query)
+            parameter("q", query) //shoes
         }.body()
     }
 }

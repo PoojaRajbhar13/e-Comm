@@ -52,7 +52,7 @@ fun AppNavigation(){
         }
 
         composable<Route.SearchScreen> {
-            SearchScreen(navController)
+            SearchScreen(navController, searchViewModel = viewModel2)
         }
 
         composable<Route.Settings> {

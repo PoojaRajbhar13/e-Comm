@@ -7,6 +7,6 @@ interface ProductRepository{
 
     suspend fun getAllProduct(): Result<ProductDto>  // thumbnail data product data
 
-    suspend fun searchProduct(query: String): Result<ProductDto>
+    suspend fun searchProduct(query: String /*shoes*/): Result<ProductDto>
 
 }
