@@ -33,6 +33,8 @@ sealed class Route {
     data object Settings : Route()
 
 
+    @Serializable
+    data class  ProductDetails(val ProductId: Int? /*id = 1*/) : Route()
 }
 
 

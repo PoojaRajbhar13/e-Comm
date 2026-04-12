@@ -111,7 +111,8 @@ fun SearchScreen(navController: NavController, searchViewModel: ProductViewModel
                                         ProductCard(
                                             modifier = Modifier.fillMaxWidth(),
                                             thumbnail = product.thumbnail,
-                                            title = product.title
+                                            title = product.title,
+                                            navController
                                         )
                                     }
                                 }

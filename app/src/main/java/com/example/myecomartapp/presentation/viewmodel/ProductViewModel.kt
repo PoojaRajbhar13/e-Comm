@@ -30,9 +30,9 @@ class ProductViewModel @Inject constructor(
 
     private var searchJob: Job? = null
 
-//    init {
-//        getAllProducts()
-//    }
+    init {
+        getAllProducts()
+    }
 
     fun reset(){
         _searchProduct.value = Result.Idle

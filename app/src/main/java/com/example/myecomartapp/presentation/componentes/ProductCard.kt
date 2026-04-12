@@ -29,18 +29,24 @@ import androidx.compose.ui.text.style.TextDecoration
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.navigation.NavController
 import coil3.compose.AsyncImage
 import coil3.request.ImageRequest
 import coil3.request.crossfade
 
 import com.example.myecomartapp.R
 import com.example.myecomartapp.domain.remote.Product
+import com.example.myecomartapp.presentation.navigation.Route
 
 @Composable
 fun ProductCard(
     modifier: Modifier = Modifier,
     thumbnail: String?, //thumbnail data
     title: String?,  //title data
+    navController: NavController,
+    productId: Int? = null,  //id = 1
+    price: Double? = null,
+    discountPercentage: Double? = null
 
 ) {
     val context = LocalContext.current
@@ -55,7 +61,9 @@ fun ProductCard(
             ),
         shape = RoundedCornerShape(12.dp),
         colors = CardDefaults.cardColors(containerColor = Color.White),
-        elevation = CardDefaults.cardElevation(defaultElevation = 2.dp)
+        elevation = CardDefaults.cardElevation(defaultElevation = 2.dp),
+        onClick = { navController.navigate(Route.ProductDetails(productId /*id = 1*/))}
+
     ) {
         Column {
             // Product Image
@@ -67,7 +75,7 @@ fun ProductCard(
                        .build(),
 
                    contentDescription = null,
-                   contentScale = ContentScale.Crop,
+                   contentScale = ContentScale.Fit,
                    modifier = Modifier
                        .fillMaxWidth()
                        .height(150.dp)
@@ -98,7 +106,7 @@ fun ProductCard(
                 // Price Row
                 Row(verticalAlignment = Alignment.CenterVertically) {
                     Text(
-                        text = "20%",
+                        text = "${discountPercentage ?: 0} %",
                         style = TextStyle(
                             fontSize = 15.sp,
                             fontWeight = FontWeight.ExtraBold,
@@ -107,7 +115,7 @@ fun ProductCard(
                     )
                     Spacer(modifier = Modifier.width(6.dp))
                     Text(
-                        text = "2009987",
+                        text = "₹${price ?: 0 }",
                         style = TextStyle(
                             fontSize = 11.sp,
                             color = Color.Gray,

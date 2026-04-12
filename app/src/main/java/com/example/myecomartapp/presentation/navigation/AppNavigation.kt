@@ -6,11 +6,13 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.navigation
 import androidx.navigation.compose.rememberNavController
+import androidx.navigation.toRoute
 import com.example.myecomartapp.presentation.screen.auth.LoginScreen
 import com.example.myecomartapp.presentation.screen.auth.SignUpScreen
 import com.example.myecomartapp.presentation.screen.cartscreen.CartScreen
 import com.example.myecomartapp.presentation.screen.homescreen.HomePage
 import com.example.myecomartapp.presentation.screen.onboarding.OnboardingScreen
+import com.example.myecomartapp.presentation.screen.product.ProductDetailScreen
 import com.example.myecomartapp.presentation.screen.searchscreen.SearchScreen
 import com.example.myecomartapp.presentation.screen.settingscreen.SettingScreen
 import com.example.myecomartapp.presentation.screen.splash.SplashScreen
@@ -65,6 +67,11 @@ fun AppNavigation(){
 
         composable<Route.Cart>{
             CartScreen()
+        }
+
+        composable<Route.ProductDetails> { backStackEntry ->
+            val args = backStackEntry.toRoute<Route.ProductDetails>()
+            ProductDetailScreen(productId = args.ProductId?: 0 /*id = 1*/, productViewModel = viewModel2, navController )
         }
     }
 }

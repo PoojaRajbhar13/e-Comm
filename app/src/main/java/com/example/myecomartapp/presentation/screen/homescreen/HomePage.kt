@@ -32,9 +32,6 @@ import com.example.myecomartapp.presentation.viewmodel.ProductViewModel
 fun HomePage(navController: NavController, productViewModel: ProductViewModel) {
     val state by productViewModel.allProducts.collectAsState()
 
-    LaunchedEffect(Unit) {
-        productViewModel.getAllProducts()
-    }
 
     HomeScreen(
         navController = navController,
@@ -79,6 +76,10 @@ fun HomePage(navController: NavController, productViewModel: ProductViewModel) {
                                         modifier = Modifier.width(160.dp),
                                         thumbnail = product.thumbnail,
                                         title = product.title,
+                                        navController,
+                                        productId = product.id, // id = 1
+                                        price = product.price,
+                                        discountPercentage = product.discountPercentage
                                     )
                                 }
                             }
@@ -109,6 +110,10 @@ fun HomePage(navController: NavController, productViewModel: ProductViewModel) {
                                 modifier = Modifier.fillMaxWidth(),
                                 thumbnail = product.thumbnail,
                                 title = product.title,
+                                navController,
+                                productId = product.id,
+                                price = product.price,
+                                discountPercentage = product.discountPercentage
                             )
                         }
                     }
