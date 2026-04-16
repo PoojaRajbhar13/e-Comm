@@ -19,6 +19,7 @@ import com.example.myecomartapp.presentation.screen.splash.SplashScreen
 import com.example.myecomartapp.presentation.screen.wishlist.WishListScreen
 import com.example.myecomartapp.presentation.viewmodel.AuthViewModel
 import com.example.myecomartapp.presentation.viewmodel.ProductViewModel
+import com.example.myecomartapp.presentation.viewmodel.SettingProfileViewModel
 import com.example.myecomartapp.presentation.viewmodel.UserPreferenceViewModel
 
 @Composable
@@ -27,6 +28,7 @@ fun AppNavigation(){
      val viewModel : AuthViewModel = viewModel()
     val viewModel1 : UserPreferenceViewModel = viewModel()
     val viewModel2 : ProductViewModel = viewModel()
+    val viewModel3 :  SettingProfileViewModel = viewModel()
 
     NavHost(navController = navController, startDestination = Route.SplashScreen ){
 
@@ -50,19 +52,19 @@ fun AppNavigation(){
         }
 
         composable<Route.HomeScreen> {
-            HomePage(navController = navController, productViewModel = viewModel2 )
+            HomePage(navController = navController, productViewModel = viewModel2 , settingProfileViewModel = viewModel3)
         }
 
         composable<Route.SearchScreen> {
-            SearchScreen(navController, searchViewModel = viewModel2)
+            SearchScreen(navController, searchViewModel = viewModel2, settingProfileViewModel = viewModel3)
         }
 
         composable<Route.Settings> {
-            SettingScreen(navController)
+            SettingScreen(navController, settingProfileViewModel =  viewModel3)
         }
 
         composable<Route.Wishlist> {
-            WishListScreen(navController)
+            WishListScreen(navController, settingProfileViewModel = viewModel3)
         }
 
         composable<Route.Cart>{

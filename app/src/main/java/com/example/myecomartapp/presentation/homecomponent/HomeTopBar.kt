@@ -12,15 +12,23 @@ import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
+import androidx.lifecycle.viewmodel.compose.viewModel
+import coil3.compose.AsyncImage
 import com.example.myecomartapp.R
+import com.example.myecomartapp.presentation.viewmodel.SettingProfileViewModel
 
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun HomeTopBar(onListClick: () -> Unit, onProfileClick: () -> Unit) {
+fun HomeTopBar(settingProfileViewModel: SettingProfileViewModel , onListClick: () -> Unit, onProfileClick: () -> Unit) {
+
+    val state by settingProfileViewModel.state.collectAsState()
 
     CenterAlignedTopAppBar(
         title = {
@@ -41,11 +49,12 @@ fun HomeTopBar(onListClick: () -> Unit, onProfileClick: () -> Unit) {
         },
         actions = {
            IconButton(onClick = onProfileClick) {
-               Icon(
-                   imageVector = Icons.Default.AccountCircle,
-                   contentDescription = "Profile",
-                   modifier = Modifier.size(32.dp)
-               )
+               AsyncImage(
+                   model = state.profileUrl ?: R.drawable.google,
+                    contentDescription = "Profile",
+                    modifier = Modifier.size(32.dp)
+                        .clip(CircleShape)
+                )
            }
         }
     )

@@ -16,6 +16,7 @@ import androidx.lifecycle.viewmodel.compose.viewModel
 import com.example.myecomartapp.presentation.navigation.AppNavigation
 import com.example.myecomartapp.presentation.screen.auth.SignUpScreen
 import com.example.myecomartapp.presentation.screen.product.ProductDetailScreen
+import com.example.myecomartapp.presentation.screen.settingscreen.SettingScreen
 import com.example.myecomartapp.presentation.viewmodel.AuthViewModel
 import com.example.myecomartapp.ui.theme.MyEcomartAppTheme
 import dagger.hilt.android.AndroidEntryPoint

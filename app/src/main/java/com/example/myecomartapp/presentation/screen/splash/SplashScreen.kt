@@ -38,10 +38,8 @@ fun SplashScreen(
 
     LaunchedEffect(key1 = state.isLoading) {
         startAnimation = true
-        // Wait for the splash screen animation to finish
         delay(3000)
 
-        // Only navigate once preferences are loaded
         if (!state.isLoading) {
             when {
                 state.isLoggedIn -> {
@@ -55,10 +53,10 @@ fun SplashScreen(
                     }
                 }
                 else -> {
-                    navHostController.navigate(Route.Onboarding){
-                        popUpTo(Route.SplashScreen) {inclusive = true}
+                    // Not first time, but not logged in -> Go to Login
+                    navHostController.navigate(Route.Login) {
+                        popUpTo(Route.SplashScreen) { inclusive = true }
                     }
-
                 }
             }
         }

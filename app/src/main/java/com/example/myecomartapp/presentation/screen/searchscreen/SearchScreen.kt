@@ -21,9 +21,10 @@ import com.example.myecomartapp.presentation.common.LoadingIndicator
 import com.example.myecomartapp.presentation.componentes.ProductCard
 import com.example.myecomartapp.presentation.screen.homescreen.HomeScreen
 import com.example.myecomartapp.presentation.viewmodel.ProductViewModel
+import com.example.myecomartapp.presentation.viewmodel.SettingProfileViewModel
 
 @Composable
-fun SearchScreen(navController: NavController, searchViewModel: ProductViewModel) {
+fun SearchScreen(navController: NavController, searchViewModel: ProductViewModel, settingProfileViewModel : SettingProfileViewModel ) {
     val searchState by searchViewModel.searchProduct.collectAsState()
     val searchQuery by searchViewModel.searchQuery.collectAsState()
 
@@ -32,6 +33,7 @@ fun SearchScreen(navController: NavController, searchViewModel: ProductViewModel
          searchViewModel.reset()
      }
     HomeScreen(
+        settingProfileViewModel = settingProfileViewModel,
         navController = navController,
         home = {
             Column(

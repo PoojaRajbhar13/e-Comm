@@ -4,12 +4,15 @@ import android.content.Context
 import com.example.myecomartapp.data.local.UserPreferenceDataStore
 import com.example.myecomartapp.data.repositoryimple.AuthRepositoryImp
 import com.example.myecomartapp.data.repositoryimple.ProductRepoImplementation
+import com.example.myecomartapp.data.repositoryimple.SettingRepositoryImpl
 import com.example.myecomartapp.data.repositoryimple.UserPreferenceRepoImplementation
 import com.example.myecomartapp.data.service.ProductApiService
 import com.example.myecomartapp.domain.repository.AuthRepository
 import com.example.myecomartapp.domain.repository.ProductRepository
+import com.example.myecomartapp.domain.repository.SettingRepository
 import com.example.myecomartapp.domain.repository.UserPreferenceRepository
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.database.FirebaseDatabase
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -23,6 +26,7 @@ import io.ktor.client.plugins.defaultRequest
 import io.ktor.client.plugins.logging.LogLevel
 import io.ktor.client.plugins.logging.Logging
 import io.ktor.http.URLProtocol
+import io.ktor.http.cio.CIOMultipartDataBase
 import io.ktor.serialization.kotlinx.json.json
 import kotlinx.serialization.json.Json
 import javax.inject.Singleton
@@ -94,4 +98,20 @@ object DataModule {
         return ProductRepoImplementation(productApiService)
     }
 
+
+    @Provides
+    @Singleton
+    fun provideFirebaseDatabase() : FirebaseDatabase{
+        return FirebaseDatabase.getInstance()
+    }
+
+    @Provides
+    @Singleton
+    fun provideSettingProfileRepo(dataBase: FirebaseDatabase): SettingRepository{
+        return SettingRepositoryImpl(dataBase)
+    }
+
+
 }
+
+

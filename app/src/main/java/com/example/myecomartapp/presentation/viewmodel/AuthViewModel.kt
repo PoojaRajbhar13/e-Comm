@@ -52,24 +52,27 @@ class AuthViewModel @Inject constructor (
             try{
                val result = signupUsecase(email, password)
                 _authState.value = result
-                setUserPrefUseCase.setFirstTimeLogin(true)
-                setUserPrefUseCase.setLoggedIn(false)
+                if(result is Result.Success) {
+                    setUserPrefUseCase.setFirstTimeLogin(false)
+                    setUserPrefUseCase.setLoggedIn(true)
+                }
             }catch (e:Exception){
                 _authState.value = Result.Failure(e.message ?: "SignUp fail")
-
-        }
+            }
         }
     }
 
 
     fun googleAuth(account: GoogleSignInAccount){
-
         _authState.value = Result.Loading
         viewModelScope.launch(Dispatchers.IO){
           val result = googleAuthUsecase(account)
             _authState.value = result
+            if(result is Result.Success) {
+                setUserPrefUseCase.setFirstTimeLogin(false)
+                setUserPrefUseCase.setLoggedIn(true)
+            }
         }
-
     }
 
 }

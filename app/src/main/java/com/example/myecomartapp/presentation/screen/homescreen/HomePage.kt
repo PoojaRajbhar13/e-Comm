@@ -27,13 +27,15 @@ import com.example.myecomartapp.core.util.Result
 import com.example.myecomartapp.presentation.common.LoadingIndicator
 import com.example.myecomartapp.presentation.componentes.ProductCard
 import com.example.myecomartapp.presentation.viewmodel.ProductViewModel
+import com.example.myecomartapp.presentation.viewmodel.SettingProfileViewModel
 
 @Composable
-fun HomePage(navController: NavController, productViewModel: ProductViewModel) {
+fun HomePage(navController: NavController, productViewModel: ProductViewModel, settingProfileViewModel: SettingProfileViewModel) {
     val state by productViewModel.allProducts.collectAsState()
 
 
     HomeScreen(
+        settingProfileViewModel = settingProfileViewModel,
         navController = navController,
         home = {
             when (val state = state) {

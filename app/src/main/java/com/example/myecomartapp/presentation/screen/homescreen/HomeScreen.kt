@@ -12,18 +12,21 @@ import androidx.navigation.NavController
 import com.example.myecomartapp.presentation.common.BottomNavigationBar
 import com.example.myecomartapp.presentation.homecomponent.HomeTopBar
 import com.example.myecomartapp.presentation.navigation.Route
+import com.example.myecomartapp.presentation.viewmodel.SettingProfileViewModel
 
 
 @Composable
 fun HomeScreen(
+    settingProfileViewModel: SettingProfileViewModel,
     navController: NavController,
     home: @Composable () -> Unit
 ) {
     Scaffold(
         topBar = {
             HomeTopBar(
+                settingProfileViewModel = settingProfileViewModel,
                 onListClick = {},
-                onProfileClick = {}
+                onProfileClick = {navController.navigate(Route.Settings)}
             )
         },
         bottomBar = {
