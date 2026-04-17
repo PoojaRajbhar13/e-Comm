@@ -1,9 +1,12 @@
 package com.example.myecomartapp.domain.remote
 
+import androidx.room.Entity
+import androidx.room.PrimaryKey
 import kotlinx.serialization.Serializable
 
 
 @Serializable
+@Entity(tableName = "Favourite")
 data class Product(
     val availabilityStatus: String? = null,
     val brand: String? = null,
@@ -11,6 +14,7 @@ data class Product(
     val description: String? = null,
     val dimensions: Dimensions? = null,
     val discountPercentage: Double? = null,
+    @PrimaryKey
     val id: Int? = null,
     val images: List<String>? = null,
     val meta: Meta,

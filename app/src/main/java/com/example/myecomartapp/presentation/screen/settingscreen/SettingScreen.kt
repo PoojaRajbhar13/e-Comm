@@ -101,11 +101,12 @@ fun SettingScreen(navController: NavController, settingProfileViewModel: Setting
         }
     }
 
-    LaunchedEffect(Unit) {
-        settingProfileViewModel.loadUserData()
-        settingProfileViewModel.loadUserProfile()
 
-    }
+//    LaunchedEffect(Unit) {
+//        settingProfileViewModel.loadUserData()
+//        settingProfileViewModel.loadUserProfile()
+//
+//    }
 
     LaunchedEffect(settingState.userProfile) {
 

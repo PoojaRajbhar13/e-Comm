@@ -1,7 +1,10 @@
 package com.example.myecomartapp.core.di
 
 import android.content.Context
+import androidx.room.Room
 import com.example.myecomartapp.data.local.UserPreferenceDataStore
+import com.example.myecomartapp.data.local.dao.CommonDao
+import com.example.myecomartapp.data.local.database.Database
 import com.example.myecomartapp.data.repositoryimple.AuthRepositoryImp
 import com.example.myecomartapp.data.repositoryimple.ProductRepoImplementation
 import com.example.myecomartapp.data.repositoryimple.SettingRepositoryImpl
@@ -110,6 +113,24 @@ object DataModule {
     fun provideSettingProfileRepo(dataBase: FirebaseDatabase): SettingRepository{
         return SettingRepositoryImpl(dataBase)
     }
+
+
+    @Provides
+    @Singleton
+    fun provideFavouritesDatabase(@ApplicationContext context: Context): Database {
+        return Room.databaseBuilder(context,  klass = Database :: class.java, name = "Favourite_Database").build()
+    }
+
+
+    @Provides
+    @Singleton
+    fun provideCommonDao(database: Database): CommonDao{
+        return database.favouriteDao
+
+
+    }
+
+
 
 
 }
