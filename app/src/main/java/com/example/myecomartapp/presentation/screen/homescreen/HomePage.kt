@@ -15,7 +15,6 @@ import androidx.compose.foundation.lazy.items
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
@@ -26,11 +25,17 @@ import androidx.navigation.NavController
 import com.example.myecomartapp.core.util.Result
 import com.example.myecomartapp.presentation.common.LoadingIndicator
 import com.example.myecomartapp.presentation.componentes.ProductCard
+import com.example.myecomartapp.presentation.viewmodel.FavouriteViewModel
 import com.example.myecomartapp.presentation.viewmodel.ProductViewModel
 import com.example.myecomartapp.presentation.viewmodel.SettingProfileViewModel
 
 @Composable
-fun HomePage(navController: NavController, productViewModel: ProductViewModel, settingProfileViewModel: SettingProfileViewModel) {
+fun HomePage(
+    navController: NavController,
+    productViewModel: ProductViewModel,
+    settingProfileViewModel: SettingProfileViewModel,
+    favouriteViewModel: FavouriteViewModel
+) {
     val state by productViewModel.allProducts.collectAsState()
 
 
@@ -76,12 +81,9 @@ fun HomePage(navController: NavController, productViewModel: ProductViewModel, s
                                 }.take(15).shuffled()) { product ->
                                     ProductCard(
                                         modifier = Modifier.width(160.dp),
-                                        thumbnail = product.thumbnail,
-                                        title = product.title,
-                                        navController,
-                                        productId = product.id, // id = 1
-                                        price = product.price,
-                                        discountPercentage = product.discountPercentage
+                                        product = product,
+                                        navController = navController,
+                                        favouriteViewModel = favouriteViewModel
                                     )
                                 }
                             }
@@ -110,12 +112,9 @@ fun HomePage(navController: NavController, productViewModel: ProductViewModel, s
                         }) { product ->
                             ProductCard(
                                 modifier = Modifier.fillMaxWidth(),
-                                thumbnail = product.thumbnail,
-                                title = product.title,
-                                navController,
-                                productId = product.id,
-                                price = product.price,
-                                discountPercentage = product.discountPercentage
+                                product = product,
+                                navController = navController,
+                                favouriteViewModel = favouriteViewModel
                             )
                         }
                     }

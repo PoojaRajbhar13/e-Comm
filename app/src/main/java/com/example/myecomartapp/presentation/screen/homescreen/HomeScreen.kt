@@ -56,7 +56,7 @@ fun HomeScreen(
             modifier = Modifier
                 .fillMaxSize()
                 .padding(innerPadding)
-                .background(Color.Gray)
+                .background(Color.White)
 
         ) {
             home()

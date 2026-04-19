@@ -20,11 +20,17 @@ import com.example.myecomartapp.core.util.Result
 import com.example.myecomartapp.presentation.common.LoadingIndicator
 import com.example.myecomartapp.presentation.componentes.ProductCard
 import com.example.myecomartapp.presentation.screen.homescreen.HomeScreen
+import com.example.myecomartapp.presentation.viewmodel.FavouriteViewModel
 import com.example.myecomartapp.presentation.viewmodel.ProductViewModel
 import com.example.myecomartapp.presentation.viewmodel.SettingProfileViewModel
 
 @Composable
-fun SearchScreen(navController: NavController, searchViewModel: ProductViewModel, settingProfileViewModel : SettingProfileViewModel ) {
+fun SearchScreen(
+    navController: NavController,
+    searchViewModel: ProductViewModel,
+    settingProfileViewModel: SettingProfileViewModel,
+    favouriteViewModel: FavouriteViewModel
+) {
     val searchState by searchViewModel.searchProduct.collectAsState()
     val searchQuery by searchViewModel.searchQuery.collectAsState()
 
@@ -112,9 +118,9 @@ fun SearchScreen(navController: NavController, searchViewModel: ProductViewModel
                                     items(filteredProducts) { product ->
                                         ProductCard(
                                             modifier = Modifier.fillMaxWidth(),
-                                            thumbnail = product.thumbnail,
-                                            title = product.title,
-                                            navController
+                                            product = product,
+                                            navController = navController,
+                                            favouriteViewModel = favouriteViewModel
                                         )
                                     }
                                 }

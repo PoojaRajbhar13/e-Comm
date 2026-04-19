@@ -1,14 +1,15 @@
 package com.example.myecomartapp.presentation.componentes
 
 
-import androidx.compose.foundation.Image
 import androidx.compose.foundation.border
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Card
@@ -19,10 +20,8 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.graphics.painter.Painter
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
-import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextDecoration
@@ -33,21 +32,16 @@ import androidx.navigation.NavController
 import coil3.compose.AsyncImage
 import coil3.request.ImageRequest
 import coil3.request.crossfade
-
-import com.example.myecomartapp.R
 import com.example.myecomartapp.domain.remote.Product
 import com.example.myecomartapp.presentation.navigation.Route
+import com.example.myecomartapp.presentation.viewmodel.FavouriteViewModel
 
 @Composable
 fun ProductCard(
     modifier: Modifier = Modifier,
-    thumbnail: String?, //thumbnail data
-    title: String?,  //title data
+    product: Product,
     navController: NavController,
-    productId: Int? = null,  //id = 1
-    price: Double? = null,
-    discountPercentage: Double? = null
-
+    favouriteViewModel: FavouriteViewModel
 ) {
     val context = LocalContext.current
 
@@ -57,30 +51,43 @@ fun ProductCard(
             .border(
                 width = 1.dp,
                 color = Color.LightGray.copy(alpha = 0.3f),
-                shape = RoundedCornerShape(12.dp)
+                shape = RoundedCornerShape(12.dp),
+
             ),
         shape = RoundedCornerShape(12.dp),
         colors = CardDefaults.cardColors(containerColor = Color.White),
-        elevation = CardDefaults.cardElevation(defaultElevation = 2.dp),
-        onClick = { navController.navigate(Route.ProductDetails(productId /*id = 1*/))}
+        elevation = CardDefaults.cardElevation(defaultElevation = 4.dp),
+        onClick = { navController.navigate(Route.ProductDetails(product.id /*id = 1*/))}
 
     ) {
         Column {
-            // Product Image
-            AsyncImage(
+            // Product Image and Favourite Icon
+            Box {
+                AsyncImage(
+                    model = ImageRequest.Builder(context)
+                        .data(product.thumbnail)  // thumbnail data
+                        .crossfade(true)
+                        .build(),
+                    contentDescription = null,
+                    contentScale = ContentScale.Fit,
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .height(150.dp)
+                        .clip(RoundedCornerShape(topStart = 12.dp, topEnd = 12.dp))
+                )
 
-                   model = ImageRequest.Builder(context)
-                       .data(thumbnail)  // thumbnail data
-                       .crossfade(true)
-                       .build(),
-
-                   contentDescription = null,
-                   contentScale = ContentScale.Fit,
-                   modifier = Modifier
-                       .fillMaxWidth()
-                       .height(150.dp)
-                       .clip(RoundedCornerShape(topStart = 12.dp, topEnd = 12.dp))
-               )
+                // Favourite Icon overlay
+                Box(
+                    modifier = Modifier
+                        .align(Alignment.TopEnd)
+                        .padding(4.dp)
+                ) {
+                    FavouriteIconComponent(
+                        favouriteViewModel = favouriteViewModel,
+                        product = product
+                    )
+                }
+            }
 
             // Details Section
             Column(
@@ -90,13 +97,13 @@ fun ProductCard(
             ) {
                 // Product Name
                 Text(
-                    text = title ?: "null", // title data
+                    text = product.title ?: "null", // title data
                     style = TextStyle(
                         fontSize = 14.sp,
                         fontWeight = FontWeight.Bold,
                         color = Color.Black
                     ),
-                   // maxLines = 2,
+                    // maxLines = 2,
                     overflow = TextOverflow.Ellipsis,
                     modifier = Modifier.height(40.dp)
                 )
@@ -106,7 +113,7 @@ fun ProductCard(
                 // Price Row
                 Row(verticalAlignment = Alignment.CenterVertically) {
                     Text(
-                        text = "${discountPercentage ?: 0} %",
+                        text = "${product.discountPercentage ?: 0} %",
                         style = TextStyle(
                             fontSize = 15.sp,
                             fontWeight = FontWeight.ExtraBold,
@@ -115,7 +122,7 @@ fun ProductCard(
                     )
                     Spacer(modifier = Modifier.width(6.dp))
                     Text(
-                        text = "₹${price ?: 0 }",
+                        text = "₹${product.price ?: 0 }",
                         style = TextStyle(
                             fontSize = 11.sp,
                             color = Color.Gray,

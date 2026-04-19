@@ -1,10 +1,9 @@
 package com.example.myecomartapp.presentation.navigation
 
 import androidx.compose.runtime.Composable
-import androidx.lifecycle.viewmodel.compose.viewModel
+import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
-import androidx.navigation.compose.navigation
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.toRoute
 import com.example.myecomartapp.presentation.screen.auth.LoginScreen
@@ -18,53 +17,69 @@ import com.example.myecomartapp.presentation.screen.settingscreen.SettingScreen
 import com.example.myecomartapp.presentation.screen.splash.SplashScreen
 import com.example.myecomartapp.presentation.screen.wishlist.WishListScreen
 import com.example.myecomartapp.presentation.viewmodel.AuthViewModel
+import com.example.myecomartapp.presentation.viewmodel.FavouriteViewModel
 import com.example.myecomartapp.presentation.viewmodel.ProductViewModel
 import com.example.myecomartapp.presentation.viewmodel.SettingProfileViewModel
 import com.example.myecomartapp.presentation.viewmodel.UserPreferenceViewModel
 
 @Composable
 fun AppNavigation(){
-     val navController = rememberNavController()
-     val viewModel : AuthViewModel = viewModel()
-    val viewModel1 : UserPreferenceViewModel = viewModel()
-    val viewModel2 : ProductViewModel = viewModel()
-    val viewModel3 :  SettingProfileViewModel = viewModel()
+    val navController = rememberNavController()
+    val authViewModel: AuthViewModel = hiltViewModel()
+    val userPreferenceViewModel: UserPreferenceViewModel = hiltViewModel()
+    val productViewModel: ProductViewModel = hiltViewModel()
+    val settingProfileViewModel: SettingProfileViewModel = hiltViewModel()
+    val favouriteViewModel: FavouriteViewModel = hiltViewModel()
+
 
     NavHost(navController = navController, startDestination = Route.SplashScreen ){
 
         composable<Route.SplashScreen>{
             SplashScreen(
                 navHostController = navController,
-                userPreferenceViewModel = viewModel1
+                userPreferenceViewModel = userPreferenceViewModel
             )
         }
 
         composable<Route.Login>{
-            LoginScreen( viewModel, navHostController = navController)
+            LoginScreen(authViewModel, navHostController = navController)
         }
 
         composable<Route.SignUp> {
-            SignUpScreen(viewModel, navHostController = navController )
+            SignUpScreen(authViewModel, navHostController = navController )
         }
 
         composable<Route.Onboarding> {
-            OnboardingScreen(navHostController = navController, userPreferenceViewModel = viewModel1)
+            OnboardingScreen(navHostController = navController, userPreferenceViewModel = userPreferenceViewModel)
         }
 
         composable<Route.HomeScreen> {
-            HomePage(navController = navController, productViewModel = viewModel2 , settingProfileViewModel = viewModel3)
+            HomePage(
+                navController = navController,
+                productViewModel = productViewModel,
+                settingProfileViewModel = settingProfileViewModel,
+                favouriteViewModel = favouriteViewModel
+            )
         }
 
         composable<Route.SearchScreen> {
-            SearchScreen(navController, searchViewModel = viewModel2, settingProfileViewModel = viewModel3)
+            SearchScreen(
+                navController = navController,
+                searchViewModel = productViewModel,
+                settingProfileViewModel = settingProfileViewModel,
+                favouriteViewModel = favouriteViewModel
+            )
         }
 
         composable<Route.Settings> {
-            SettingScreen(navController, settingProfileViewModel =  viewModel3)
+            SettingScreen(navController, settingProfileViewModel = settingProfileViewModel)
         }
 
         composable<Route.Wishlist> {
-            WishListScreen(navController, settingProfileViewModel = viewModel3)
+            WishListScreen(
+                navController, settingProfileViewModel = settingProfileViewModel,
+                favouriteViewModel = favouriteViewModel
+            )
         }
 
         composable<Route.Cart>{
@@ -73,7 +88,12 @@ fun AppNavigation(){
 
         composable<Route.ProductDetails> { backStackEntry ->
             val args = backStackEntry.toRoute<Route.ProductDetails>()
-            ProductDetailScreen(productId = args.ProductId?: 0 /*id = 1*/, productViewModel = viewModel2, navController )
+            ProductDetailScreen(
+                productId = args.ProductId ?: 0,
+                productViewModel = productViewModel,
+                navController = navController,
+                favouriteViewModel = favouriteViewModel
+            )
         }
     }
 }

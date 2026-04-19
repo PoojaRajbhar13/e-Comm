@@ -6,11 +6,13 @@ import com.example.myecomartapp.data.local.UserPreferenceDataStore
 import com.example.myecomartapp.data.local.dao.CommonDao
 import com.example.myecomartapp.data.local.database.Database
 import com.example.myecomartapp.data.repositoryimple.AuthRepositoryImp
+import com.example.myecomartapp.data.repositoryimple.FavouriteRepoImplementation
 import com.example.myecomartapp.data.repositoryimple.ProductRepoImplementation
 import com.example.myecomartapp.data.repositoryimple.SettingRepositoryImpl
 import com.example.myecomartapp.data.repositoryimple.UserPreferenceRepoImplementation
 import com.example.myecomartapp.data.service.ProductApiService
 import com.example.myecomartapp.domain.repository.AuthRepository
+import com.example.myecomartapp.domain.repository.FavouriteRepository
 import com.example.myecomartapp.domain.repository.ProductRepository
 import com.example.myecomartapp.domain.repository.SettingRepository
 import com.example.myecomartapp.domain.repository.UserPreferenceRepository
@@ -129,6 +131,15 @@ object DataModule {
 
 
     }
+
+
+    @Provides
+    @Singleton
+    fun provideFavouriteRepository(commonDao: CommonDao): FavouriteRepository {
+        return FavouriteRepoImplementation(commonDao)
+    }
+
+
 
 
 
