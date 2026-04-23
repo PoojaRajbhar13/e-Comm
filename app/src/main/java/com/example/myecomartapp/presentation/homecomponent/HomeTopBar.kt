@@ -51,13 +51,7 @@ fun HomeTopBar(
             }
         },
         actions = {
-            IconButton(onClick = onCartClick) {
-                Icon(
-                    imageVector = Icons.Default.ShoppingCart,
-                    contentDescription = "Cart",
-                    modifier = Modifier.size(28.dp)
-                )
-            }
+
             IconButton(onClick = onProfileClick) {
                 AsyncImage(
                     model = state.profileUrl ?: R.drawable.google,

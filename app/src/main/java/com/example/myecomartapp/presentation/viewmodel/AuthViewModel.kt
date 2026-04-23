@@ -1,6 +1,5 @@
 package com.example.myecomartapp.presentation.viewmodel
 
-import android.accounts.Account
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.myecomartapp.core.util.Result

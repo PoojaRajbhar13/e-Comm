@@ -4,10 +4,7 @@ import com.example.myecomartapp.core.util.Result
 import com.example.myecomartapp.domain.repository.AuthRepository
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount
 import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.auth.GoogleAuthCredential
 import com.google.firebase.auth.GoogleAuthProvider
-import com.google.firebase.auth.GoogleAuthProvider.getCredential
-import dagger.hilt.InstallIn
 import kotlinx.coroutines.tasks.await
 import javax.inject.Inject
 

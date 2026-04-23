@@ -89,7 +89,6 @@ fun AppNavigation(){
                 onNavigateBack = { navController.popBackStack() },
                 cartViewModel = cartViewModel,
                 navController = navController,
-                favouriteViewModel = favouriteViewModel,
 
             )
         }

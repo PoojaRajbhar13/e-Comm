@@ -9,6 +9,7 @@ import com.example.myecomartapp.data.local.database.Database
 import com.example.myecomartapp.data.repositoryimple.AuthRepositoryImp
 import com.example.myecomartapp.data.repositoryimple.CartRepositoryImple
 import com.example.myecomartapp.data.repositoryimple.FavouriteRepoImplementation
+import com.example.myecomartapp.data.repositoryimple.PaymentRepoImpl
 import com.example.myecomartapp.data.repositoryimple.ProductRepoImplementation
 import com.example.myecomartapp.data.repositoryimple.SettingRepositoryImpl
 import com.example.myecomartapp.data.repositoryimple.UserPreferenceRepoImplementation
@@ -16,11 +17,13 @@ import com.example.myecomartapp.data.service.ProductApiService
 import com.example.myecomartapp.domain.repository.AuthRepository
 import com.example.myecomartapp.domain.repository.CartRepository
 import com.example.myecomartapp.domain.repository.FavouriteRepository
+import com.example.myecomartapp.domain.repository.PaymentRepository
 import com.example.myecomartapp.domain.repository.ProductRepository
 import com.example.myecomartapp.domain.repository.SettingRepository
 import com.example.myecomartapp.domain.repository.UserPreferenceRepository
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.FirebaseDatabase
+import com.google.firebase.firestore.FirebaseFirestore
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -157,7 +160,16 @@ object DataModule {
 
 
 
-
+    @Provides
+    @Singleton
+    fun provideFireStore(): FirebaseFirestore {
+        return FirebaseFirestore.getInstance()
+    }
+    @Provides
+    @Singleton
+    fun providePaymentRepository(firebaseDataStore : FirebaseFirestore) : PaymentRepository {
+        return PaymentRepoImpl(firebaseDataStore)
+    }
 
 }
 

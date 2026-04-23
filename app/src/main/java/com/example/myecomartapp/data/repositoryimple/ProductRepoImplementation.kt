@@ -1,11 +1,9 @@
 package com.example.myecomartapp.data.repositoryimple
 
-import android.R
 import com.example.myecomartapp.core.util.Result
 import com.example.myecomartapp.data.service.ProductApiService
 import com.example.myecomartapp.domain.remote.ProductDto
 import com.example.myecomartapp.domain.repository.ProductRepository
-import io.ktor.client.HttpClient
 import javax.inject.Inject
 
 

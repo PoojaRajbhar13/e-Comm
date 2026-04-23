@@ -75,7 +75,7 @@ fun LoginScreen(loginViewModel: AuthViewModel, navHostController: NavHostControl
 
 
             is Result.Failure -> {
-                error = (authState as Result.Failure).message
+                error = (authState as Result.Failure).message as String
                 Toast.makeText(context, error, Toast.LENGTH_SHORT).show()
             }
         }
