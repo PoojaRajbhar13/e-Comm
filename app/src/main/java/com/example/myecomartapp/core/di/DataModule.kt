@@ -2,16 +2,19 @@ package com.example.myecomartapp.core.di
 
 import android.content.Context
 import androidx.room.Room
+import com.example.myecomartapp.data.local.CartDataStore
 import com.example.myecomartapp.data.local.UserPreferenceDataStore
 import com.example.myecomartapp.data.local.dao.CommonDao
 import com.example.myecomartapp.data.local.database.Database
 import com.example.myecomartapp.data.repositoryimple.AuthRepositoryImp
+import com.example.myecomartapp.data.repositoryimple.CartRepositoryImple
 import com.example.myecomartapp.data.repositoryimple.FavouriteRepoImplementation
 import com.example.myecomartapp.data.repositoryimple.ProductRepoImplementation
 import com.example.myecomartapp.data.repositoryimple.SettingRepositoryImpl
 import com.example.myecomartapp.data.repositoryimple.UserPreferenceRepoImplementation
 import com.example.myecomartapp.data.service.ProductApiService
 import com.example.myecomartapp.domain.repository.AuthRepository
+import com.example.myecomartapp.domain.repository.CartRepository
 import com.example.myecomartapp.domain.repository.FavouriteRepository
 import com.example.myecomartapp.domain.repository.ProductRepository
 import com.example.myecomartapp.domain.repository.SettingRepository
@@ -139,6 +142,18 @@ object DataModule {
         return FavouriteRepoImplementation(commonDao)
     }
 
+
+    @Provides
+    @Singleton
+    fun provideCartDataStore(@ApplicationContext context: Context): CartDataStore {
+        return CartDataStore(context)
+    }
+
+    @Provides
+    @Singleton
+    fun  provideCartRepository(cartDataStore: CartDataStore): CartRepository {
+        return CartRepositoryImple(cartDataStore)
+    }
 
 
 

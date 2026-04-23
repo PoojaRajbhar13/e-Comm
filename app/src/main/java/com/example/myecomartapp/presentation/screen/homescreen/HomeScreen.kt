@@ -26,7 +26,8 @@ fun HomeScreen(
             HomeTopBar(
                 settingProfileViewModel = settingProfileViewModel,
                 onListClick = {},
-                onProfileClick = {navController.navigate(Route.Settings)}
+                onProfileClick = {navController.navigate(Route.Settings)},
+                onCartClick = {navController.navigate(Route.Cart)}
             )
         },
         bottomBar = {

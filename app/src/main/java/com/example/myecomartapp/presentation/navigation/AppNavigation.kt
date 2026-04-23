@@ -17,6 +17,7 @@ import com.example.myecomartapp.presentation.screen.settingscreen.SettingScreen
 import com.example.myecomartapp.presentation.screen.splash.SplashScreen
 import com.example.myecomartapp.presentation.screen.wishlist.WishListScreen
 import com.example.myecomartapp.presentation.viewmodel.AuthViewModel
+import com.example.myecomartapp.presentation.viewmodel.CartViewModel
 import com.example.myecomartapp.presentation.viewmodel.FavouriteViewModel
 import com.example.myecomartapp.presentation.viewmodel.ProductViewModel
 import com.example.myecomartapp.presentation.viewmodel.SettingProfileViewModel
@@ -30,6 +31,7 @@ fun AppNavigation(){
     val productViewModel: ProductViewModel = hiltViewModel()
     val settingProfileViewModel: SettingProfileViewModel = hiltViewModel()
     val favouriteViewModel: FavouriteViewModel = hiltViewModel()
+    val cartViewModel: CartViewModel = hiltViewModel()
 
 
     NavHost(navController = navController, startDestination = Route.SplashScreen ){
@@ -83,7 +85,13 @@ fun AppNavigation(){
         }
 
         composable<Route.Cart>{
-            CartScreen()
+            CartScreen(
+                onNavigateBack = { navController.popBackStack() },
+                cartViewModel = cartViewModel,
+                navController = navController,
+                favouriteViewModel = favouriteViewModel,
+
+            )
         }
 
         composable<Route.ProductDetails> { backStackEntry ->
@@ -92,7 +100,8 @@ fun AppNavigation(){
                 productId = args.ProductId ?: 0,
                 productViewModel = productViewModel,
                 navController = navController,
-                favouriteViewModel = favouriteViewModel
+                favouriteViewModel = favouriteViewModel,
+                cartViewModel = cartViewModel
             )
         }
     }
