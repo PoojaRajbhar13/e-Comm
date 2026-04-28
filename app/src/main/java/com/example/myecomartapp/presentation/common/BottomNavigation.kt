@@ -21,12 +21,14 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.ColorFilter
 import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
+import androidx.navigation.NavDestination.Companion.hasRoute
 import androidx.navigation.compose.currentBackStackEntryAsState
 import com.example.myecomartapp.R
 import com.example.myecomartapp.presentation.navigation.Route
@@ -45,7 +47,7 @@ sealed class BottomNavItem(
 
 @Composable
 fun BottomNavigationBar(
-    currentRoute: Any?,
+    currentRoute: Any?, // Not strictly needed as we use navController internally
     onItemClick: (BottomNavItem) -> Unit,
     navController: NavController
 ) {
@@ -58,8 +60,9 @@ fun BottomNavigationBar(
         BottomNavItem.Search,
         BottomNavItem.Settings
     )
-    val navBackStackEntry by navController.currentBackStackEntryAsState() // for remember navigation
-    val currentRoute = navBackStackEntry?.destination?.route  //store navigation process
+    
+    val navBackStackEntry by navController.currentBackStackEntryAsState()
+    val currentDestination = navBackStackEntry?.destination
 
     Box(
         modifier = Modifier.fillMaxWidth()
@@ -68,22 +71,18 @@ fun BottomNavigationBar(
         Row(
             modifier = Modifier
                 .fillMaxWidth()
-                .background(Color.White)
+                .background(colorResource(R.color.Pink))
                 .padding(vertical = 12.dp, horizontal = 8.dp),
             horizontalArrangement = Arrangement.SpaceEvenly,
             verticalAlignment = Alignment.CenterVertically
         ) {
             // Left items
-            leftItems.forEachIndexed { index, item ->
+            leftItems.forEach { item ->
+                val isSelected = currentDestination?.hasRoute(item.route::class) == true
                 BottomNavItemView(
                     item = item,
-                    isSelected = currentRoute == item.route,
-                    onClick = { onItemClick(item) },
-                    color = when {
-                        index == 0 && currentRoute == Route.HomeScreen::class.qualifiedName -> R.color.teal_200
-                       index == 1 && currentRoute == Route.Wishlist::class.qualifiedName -> R.color.teal_200
-                       else -> R.color.black
-                    }
+                    isSelected = isSelected,
+                    onClick = { onItemClick(item) }
                 )
             }
 
@@ -91,21 +90,18 @@ fun BottomNavigationBar(
             Box(modifier = Modifier.size(60.dp))
 
             // Right items
-            rightItems.forEachIndexed  {index,  item ->
+            rightItems.forEach { item ->
+                val isSelected = currentDestination?.hasRoute(item.route::class) == true
                 BottomNavItemView(
                     item = item,
-                    isSelected = currentRoute == item.route,
-                    onClick = { onItemClick(item) },
-                    color = when {
-                        index == 0 && currentRoute == Route.SearchScreen::class.qualifiedName -> R.color.teal_200
-                        index == 1 && currentRoute == Route.Settings::class.qualifiedName -> R.color.teal_200
-                        else -> R.color.black
-                    }
+                    isSelected = isSelected,
+                    onClick = { onItemClick(item) }
                 )
             }
         }
 
         // Floating cart button
+        val isCartSelected = currentDestination?.hasRoute(Route.Cart::class) == true
         Box(
             modifier = Modifier
                 .align(Alignment.TopCenter)
@@ -117,13 +113,12 @@ fun BottomNavigationBar(
                 .padding(8.dp),
             contentAlignment = Alignment.Center
         ) {
-
             Image(
                 painter = painterResource(id = R.drawable.cart),
                 contentDescription = "Cart",
                 modifier = Modifier.size(24.dp),
-                colorFilter = androidx.compose.ui.graphics.ColorFilter.tint(
-                    color = colorResource(id = R.color.black)
+                colorFilter = ColorFilter.tint(
+                    color = if (isCartSelected) colorResource(R.color.Crimson) else Color.Black
                 )
             )
         }
@@ -134,12 +129,11 @@ fun BottomNavigationBar(
 fun BottomNavItemView(
     item: BottomNavItem,
     isSelected: Boolean,
-    onClick: () -> Unit,
-    color: Int
+    onClick: () -> Unit
 ) {
-    val selectedColor = Color(0xFFF83758) // Pink
-    val unselectedColor = Color.Gray
-
+    val selectedColor = colorResource(R.color.Crimson)
+    val unselectedColor = Color.Black
+    
     val contentColor = if (isSelected) selectedColor else unselectedColor
     val interactionSource = remember { MutableInteractionSource() }
 
@@ -157,7 +151,7 @@ fun BottomNavItemView(
             painter = painterResource(id = item.icon),
             contentDescription = item.title,
             modifier = Modifier.size(24.dp),
-            colorFilter = androidx.compose.ui.graphics.ColorFilter.tint(color = colorResource(color))
+            colorFilter = ColorFilter.tint(color = contentColor)
         )
 
         Text(

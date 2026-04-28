@@ -5,17 +5,22 @@
 # For more details, see
 #   http://developer.android.com/guide/developing/tools/proguard.html
 
-# If your project uses WebView with JS, uncomment the following
-# and specify the fully qualified class name to the JavaScript interface
-# class:
-#-keepclassmembers class fqcn.of.javascript.interface.for.webview {
-#   public *;
-#}
+# Razorpay rules
+-keep class com.razorpay.** {*;}
+-dontwarn com.razorpay.**
+-dontwarn proguard.annotation.**
 
-# Uncomment this to preserve the line number information for
-# debugging stack traces.
-#-keepattributes SourceFile,LineNumberTable
+# Firebase Data Models
+# Keep the classes in the model package to prevent R8 from obfuscating them.
+# Firebase uses reflection to map database fields to class properties.
+-keep class com.example.myecomartapp.domain.model.** { *; }
+-keep class com.example.myecomartapp.domain.remote.** { *; }
 
-# If you keep the line number information, uncomment this to
-# hide the original source file name.
-#-renamesourcefileattribute SourceFile
+# Keep GMS and Firebase classes
+-keep class com.google.firebase.** { *; }
+-keep class com.google.android.gms.** { *; }
+
+# Maintain annotations used by Firebase and Serialization
+-keepattributes Signature
+-keepattributes *Annotation*
+-keepattributes EnclosingMethod,InnerClasses

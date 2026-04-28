@@ -9,6 +9,7 @@ import androidx.navigation.toRoute
 import com.example.myecomartapp.presentation.screen.auth.LoginScreen
 import com.example.myecomartapp.presentation.screen.auth.SignUpScreen
 import com.example.myecomartapp.presentation.screen.cartscreen.CartScreen
+import com.example.myecomartapp.presentation.screen.category.CategoryScreen
 import com.example.myecomartapp.presentation.screen.homescreen.HomePage
 import com.example.myecomartapp.presentation.screen.onboarding.OnboardingScreen
 import com.example.myecomartapp.presentation.screen.product.ProductDetailScreen
@@ -103,5 +104,18 @@ fun AppNavigation(){
                 cartViewModel = cartViewModel
             )
         }
+
+        composable<Route.CategoryList> { backStackEntry ->
+            val args = backStackEntry.toRoute<Route.CategoryList>()
+
+            CategoryScreen(
+                categoryName = args.categoryName,
+                navController = navController,
+                productViewModel = productViewModel,
+                favouriteViewModel = favouriteViewModel
+
+            )
+        }
+
     }
 }

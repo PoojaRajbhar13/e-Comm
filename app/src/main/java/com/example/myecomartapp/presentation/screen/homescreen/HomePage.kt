@@ -22,9 +22,13 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
+import com.example.myecomartapp.R
 import com.example.myecomartapp.core.util.Result
+import com.example.myecomartapp.data.model.Category
 import com.example.myecomartapp.presentation.common.LoadingIndicator
 import com.example.myecomartapp.presentation.componentes.ProductCard
+import com.example.myecomartapp.presentation.homecomponent.CategorySection
+import com.example.myecomartapp.presentation.navigation.Route
 import com.example.myecomartapp.presentation.viewmodel.FavouriteViewModel
 import com.example.myecomartapp.presentation.viewmodel.ProductViewModel
 import com.example.myecomartapp.presentation.viewmodel.SettingProfileViewModel
@@ -37,6 +41,15 @@ fun HomePage(
     favouriteViewModel: FavouriteViewModel
 ) {
     val state by productViewModel.allProducts.collectAsState()
+
+    //list
+    val categoryList = listOf(
+        Category(1,"Beauty", R.drawable.beauty),
+        Category(2, "Fashion", R.drawable.fashion),
+        Category(3, "Kids", R.drawable.kids),
+        Category(4, "Mens", R.drawable.men),
+        Category(5, "Women's", R.drawable.women)
+    )
 
 
     HomeScreen(
@@ -55,6 +68,18 @@ fun HomePage(
                         horizontalArrangement = Arrangement.spacedBy(12.dp),
                         verticalArrangement = Arrangement.spacedBy(12.dp)
                     ) {
+                        //category
+                        item(span = { GridItemSpan(2)}){
+                            CategorySection(
+                                categories =  categoryList,
+                                onCategoryClick = {categoryId  ->
+                                    val clickedCategory = categoryList.find { it.id == categoryId}?.name ?: "Unknown"
+                                    navController.navigate(Route.CategoryList(categoryName = clickedCategory))
+                                }
+
+                            )
+
+                        }
                         // Featured Products Section
                         item(span = { GridItemSpan(2) }) {
                             Text(

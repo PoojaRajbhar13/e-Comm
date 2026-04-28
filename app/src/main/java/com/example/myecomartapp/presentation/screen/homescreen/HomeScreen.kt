@@ -8,6 +8,7 @@ import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.colorResource
 import androidx.navigation.NavController
 import com.example.myecomartapp.presentation.common.BottomNavigationBar
 import com.example.myecomartapp.presentation.homecomponent.HomeTopBar
@@ -19,15 +20,15 @@ import com.example.myecomartapp.presentation.viewmodel.SettingProfileViewModel
 fun HomeScreen(
     settingProfileViewModel: SettingProfileViewModel,
     navController: NavController,
-    home: @Composable () -> Unit
+    home: @Composable () -> Unit,
 ) {
     Scaffold(
         topBar = {
             HomeTopBar(
                 settingProfileViewModel = settingProfileViewModel,
                 onListClick = {},
-                onProfileClick = {navController.navigate(Route.Settings)},
-                onCartClick = {navController.navigate(Route.Cart)}
+                onProfileClick = {navController.navigate(Route.Settings)
+               }
             )
         },
         bottomBar = {

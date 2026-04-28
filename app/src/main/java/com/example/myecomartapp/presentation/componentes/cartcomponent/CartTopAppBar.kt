@@ -22,6 +22,7 @@ import com.example.myecomartapp.R
 fun CartTopAppBar(onBackClick: () -> Unit){
 
     CenterAlignedTopAppBar(
+
         title = {
             Text(
                 text ="Cart Items",
@@ -39,7 +40,7 @@ fun CartTopAppBar(onBackClick: () -> Unit){
             }
         },
         colors = TopAppBarDefaults.
-        topAppBarColors(containerColor = colorResource(R.color.purple_500)),
+        topAppBarColors(containerColor = colorResource(R.color.Pink)),
         expandedHeight = 48.dp
     )
 }

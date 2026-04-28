@@ -3,7 +3,8 @@ package com.example.myecomartapp.presentation.navigation
 import kotlinx.serialization.Serializable
 
 @Serializable
-sealed class Route {
+sealed class
+Route {
 
     @Serializable
     data object SignUp : Route()
@@ -35,6 +36,12 @@ sealed class Route {
 
     @Serializable
     data class  ProductDetails(val ProductId: Int? /*id = 1*/) : Route()
+
+
+
+    @Serializable
+    data class  CategoryList(val categoryName: String)
 }
+
 
 
