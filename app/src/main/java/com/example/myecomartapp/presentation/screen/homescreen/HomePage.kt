@@ -27,6 +27,7 @@ import com.example.myecomartapp.core.util.Result
 import com.example.myecomartapp.data.model.Category
 import com.example.myecomartapp.presentation.common.LoadingIndicator
 import com.example.myecomartapp.presentation.componentes.ProductCard
+import com.example.myecomartapp.presentation.homecomponent.Banner
 import com.example.myecomartapp.presentation.homecomponent.CategorySection
 import com.example.myecomartapp.presentation.navigation.Route
 import com.example.myecomartapp.presentation.viewmodel.FavouriteViewModel
@@ -81,6 +82,21 @@ fun HomePage(
                             )
 
                         }
+
+
+                        //banner
+                        item(span = { GridItemSpan(2) }) {
+                            androidx.compose.foundation.layout.Box(
+                                modifier = Modifier.padding(vertical = 8.dp)
+                            ) {
+                                Banner(
+                                    imageRes = R.drawable.banner,
+                                    onBannerClick = {
+                                    }
+                                )
+                            }
+                        }
+
 
 
 
