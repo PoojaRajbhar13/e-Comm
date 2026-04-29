@@ -21,7 +21,7 @@ class PaymentRepoImpl @Inject constructor(private val firestore: FirebaseFiresto
                 trySend(Result.Loading)
                 val key = try {
                     firestore.collection("payment").document("razorpay").get().await()
-                        .getString("RAZORPAY_API")
+                        .getString("RAZORPAY_API_KEY")
                 } catch (e: Exception) {
                     null
 
